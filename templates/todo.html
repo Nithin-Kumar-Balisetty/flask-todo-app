@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7fb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #555;
+            margin: 5px 0 15px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button.add-task {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        button.mark-complete {
+            background-color: #f0ad4e;
+            color: white;
+        }
+
+        button.delete-task {
+            background-color: #d9534f;
+            color: white;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+
+        li span {
+            flex: 1;
+            font-size: 1rem;
+            color: #333;
+            text-align: left;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Todo App</h1>
+        <p>Welcome<br><strong>{{ session['email'] }}</strong></p>
+        <a href="/logout">LogOut</a>
+        <form action="/todo" method="post">
+            <input type="text" name="task" placeholder="Enter a task" required>
+            <button type="submit" class="add-task">Add Task</button>
+        </form>
+        <ul>
+            {% for task in tasks %}
+            <li>
+                <span>{{ task['task'] }}</span>
+                <div class="task-actions">
+                    {% if task['completed'] %}
+                    <form action="/incomplete/{{ task['_id'] }}" method="get" style="display: inline;">
+                        <button class="mark-complete" type="submit">Mark Incomplete</button>
+                    </form>
+                    {% else %}
+                    <form action="/complete/{{ task['_id'] }}" method="get" style="display: inline;">
+                        <button class="mark-complete" type="submit">Mark Complete</button>
+                    </form>
+                    {% endif %}
+                    <form action="/delete/{{ task['_id'] }}" method="get" style="display: inline;">
+                        <button class="delete-task" type="submit">Delete</button>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
