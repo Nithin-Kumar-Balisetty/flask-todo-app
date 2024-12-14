@@ -191,7 +191,6 @@ webdriver-manager==4.0.1
 webencodings==0.5.1
 websocket-client==1.8.0
 Werkzeug==3.0.3
-wheel @ file:///opt/homebrew/Cellar/python%403.12/3.12.7_1/libexec/wheel-0.44.0-py3-none-any.whl#sha256=c01326144883c50263d6967d1145640f3bbc8dfab32c2cbe817ef61d7a810219
 widgetsnbextension==4.0.13
 wrapt==1.16.0
 wsproto==1.2.0
